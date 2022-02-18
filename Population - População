@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <cs50.h>
+#include <math.h>
+
+int main(void)
+{
+      // TODO: Solicite o valor inicial ao usuário
+int n;
+do
+{
+    n = get_int("Populacao Atual: ");
+}
+while (n < 9);
+
+     // TODO: Solicite o valor final ao usuário
+int f;
+do
+{
+    f = get_int("Populacao Futura: ");
+}
+while (f <= n);    
+
+     // TODO: Calcule o número de anos até o limite
+
+int ano=0;
+do
+{
+    n = n + (n/3)-(n/4);
+    ano++;
+}
+while (n<f);
+
+     // TODO: Imprima o número de anos
+     printf("Anos Para alcancar a Populacao Futura: %i\n", ano);
+}
