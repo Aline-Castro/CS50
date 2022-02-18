@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <cs50.h>
+#include <math.h>
+
+int main(void)
+{
+    float p = get_float("PRECO DO PRODUTO: ");
+
+float pay;
+do
+{
+    pay = get_float("VALOR RECEBIDO: ");
+}
+while (pay < p);
+
+    float troco = pay-p;
+    int cent = round(troco * 100);
+    int coins = cent/25 + (cent%25)/10 + ((cent%25)%10)/5 + ((cent%25)%10)%5;
+   
+    printf("TROCO: %0.2f", troco);
+    printf("\n");
+    printf("%i MOEDAS DE TROCO", coins);
+    printf("\n");
+}
