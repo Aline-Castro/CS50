@@ -1,0 +1,39 @@
+#include <cs50.h>
+#include <stdio.h>
+
+void get_piramide(int h, int n);
+
+//Faz a primeira piramide
+int main (void)
+{
+    int h=0;
+    do
+    {
+        h = get_int("Qual a altura da piramide?\n");
+    }
+    while (h<1 || h>8);
+    for (int i=0; i<h;i++)
+    {
+        get_piramide(h, i+1);
+    }
+}
+void get_piramide(int h, int n)
+{
+    for(int a=0; a<h-n; a++)
+    {
+        printf(" ");
+    }
+     for(int b=0; b<n; b++)
+    {
+        printf("#");
+    }
+    //separador das piramide
+    printf ("  ");
+    //segunda piramide
+    for(int t=0; t<n; t++)
+    {
+        printf("#");
+    }
+    //pular linha
+    printf("\n");
+}
