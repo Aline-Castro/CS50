@@ -1,0 +1,127 @@
+#include <stdio.h>
+#include <cs50.h>
+#include <math.h>
+
+// MASTERCARD: 16-Digitos,51, 52, 53, 54, 55
+// VISA: 13-16-Digitos, 4
+// AMEX: 15-Digitos, 34 or 37
+
+
+int main(void) {
+    // Variaveis 
+    int count = 0;
+    long cc;
+    long ccNUM;
+    string card;
+
+    // Prompt user
+    do {
+        cc = get_long("Qual o numero do cartao de credito: ");
+    } while (cc < 0);
+
+    ccNUM = cc;
+
+    // Verificar o comprimento
+    while (cc > 0) {
+        cc = cc / 10;
+        count++;
+    }
+
+    // Checar se o comprimento e` valido
+    if (count != 13 && count != 15 && count != 16) {
+        printf("INVALID");
+    }
+
+    // Algoritimo de Luhn 
+    // Looping
+    long digit;
+    int oneD;
+    int twoD;
+    int checker;
+    int multi;
+    int sum1 = 0;
+    int sum2 = 0;
+    int result;
+
+ 
+    for (int i = 0; i < count; i++) {
+  
+        long factor = pow(10, i);
+
+       
+        if (i % 2 != 0 && count == 16) {
+            digit = (ccNUM / factor) % 10;
+            multi = digit * 2;
+
+            if (multi > 9) {
+               int num1 = multi%10;
+               int num2 = multi/10;
+               multi = num1 + num2;
+            }
+            sum1 += multi;
+
+            if (i == count-1) {
+                oneD = digit;
+            }
+        }
+        else if (i % 2 != 0 && (count == 13 || count == 15)) {
+            digit = (ccNUM / factor) % 10;
+            multi = digit * 2;
+
+            if (multi > 9) {
+               int num1 = multi%10;
+               int num2 = multi/10;
+               multi = num1 + num2;
+            }
+            sum1 += multi;
+
+            if (i == count-2) {
+                twoD = digit;
+            }
+        }
+
+      
+        if (i % 2 == 0 && count == 16) {
+            digit = (ccNUM / factor) % 10;
+            sum2 += digit;
+
+            if (i==count-2) {
+                twoD = digit;
+            }
+        }
+        else if (i % 2 == 0 && (count == 13 || count == 15)) {
+            digit = (ccNUM / factor) % 10;
+            sum2 += digit;
+
+            if (i==count-1) {
+                oneD = digit;
+            }
+        }
+        checker = oneD + twoD;
+    }
+
+    // Qual a bandeira do cartao
+    if (count == 16 && digit == 4) {
+        card = "VISA";
+    }
+    else if ((count == 13 || count == 16) && (checker >= 6 && checker <= 10)) {
+        card = "MASTERCARD";
+    }
+    else if (count == 15 && (checker == 7 || checker == 10)) {
+        card = "AMEX";
+    }
+    else {
+        card = "INVALID";
+    }
+
+    // Compute final sum
+    result = sum1 + sum2;
+
+    // Final verification
+    if (result % 10 == 0) {
+        printf("%s\n", card);
+    }
+    else {
+        printf("INVALID\n");
+    }
+}
