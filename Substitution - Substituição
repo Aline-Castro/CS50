@@ -1,0 +1,57 @@
+#include <cs50.h>
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int main(int argc, string argv[])
+{
+    if (argc != 2)  //if command line argument is not equal to 2
+    {
+        printf("Usage: ./substitution key\n"); //print error message "Usage ./substitution" is commnand is not equal to 2
+        return 1;
+    }
+
+    int argv_length = strlen(argv[1]); //para obter o comprimento de argv[1], o segundo comando após ./substitution na linha de comando
+    if (argv_length != 26)      //para certificar-se de que o comprimento tenha 26 caracteres
+    {
+        printf("Key must be up to 26\n"); //se o comprimento não for igual a 26 (imprima a mensagem de erro)
+    }
+    
+    
+    for (int i = 0; i < argv_length; i++) //iterar sobre o comprimento dos argumentos para obter seu caractere
+    {
+        if (!isalpha(argv[1][i]))   //para verificar se argv[1] não é alfabético
+        {
+            printf("All Key must be an Alphabeth\n"); //imprima esta mensagem de erro se todos os caracteres em argv[1] não forem alfabeticas
+        }
+        for (int j = i + 1; j < argv_length; j++) //declarando outra iteração no comprimento do argv para verificar repeticao no alfabeto
+        {
+            if (argv[1][i] == argv[1][j])  //verificando o alfabeto tem letras repetidas no argv[1]
+            {
+                printf("Key must not contain repeated alphabeth");  //se o alfabeto tiver letras repetidas encontradas, imprima a mensagem de erro
+                return 1;
+            }
+        }
+    }
+    
+    string plaintext = get_string("PLAINTEXT: ");   //Obtendo a entrada do usuário como texto simples
+    printf("CIPHERTEXT: ");     //Imprime o ciphertext
+    int plaintext_length = strlen(plaintext);       //obter o strlen de texto simples (entrada do usuário)
+    for (int i = 0; i < plaintext_length; i++)      //iterar sobre o plaintext_Length
+    {
+        if (isupper(plaintext[i]))                  //verifica se o caractere é maiúsculo
+        {
+            printf("%c", toupper(argv[1][plaintext[i] - 65]));  //cálculo para imprimir o texto cifrado e certificar-se de que é maiúscula
+        }
+        else if (islower(plaintext[i]))  //verifica se os carcteres sao minusculos
+        {
+            printf("%c", tolower(argv[1][plaintext[i] - 97]));  //cálculo para imprimir o texto cifrado e certificar-se de que é minusculo
+        }
+        else   //se os caracteres nao forem alfabeticos, imprima-os sem alterar
+        {
+            printf("%c", plaintext[i]);
+        }
+
+    }
+    printf("\n");  //imprime uma nova linha
+}
