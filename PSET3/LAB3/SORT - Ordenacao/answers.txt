@@ -1,0 +1,18 @@
+sort1 uses: BubbleSort
+How do you know?: porque em 'sorted'  ele executou  mais rápido do que selection sort
+
+sort2 uses: MargeSort
+How do you know?: Porque foi o mais rapido (reversed)
+
+sort3 uses: Selection Sort
+
+How do you know?: Pois o tempo em sorted e reversed foram proximos
+
+reversed
+sort1: 0m0.019s
+sort2: 0m0.276s
+sort3: 0m0.266s
+
+sorted
+sort1: 0m0.002s
+sort3: 0m0.248s
